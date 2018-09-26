@@ -1,0 +1,80 @@
+body {
+    background: #ffe url('img/fade-yotsuba.png') repeat-x 50% 0%;
+}
+.boxed {
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom:25px;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-align:center;
+    font-weight:normal;
+    width:205px;
+    overflow:hidden;
+    position: relative;
+    font-size:11px;
+    padding: 3px;
+    background: rgba(182, 182, 182, 0.12);
+    border: 1px solid rgba(111, 111, 111, 0.34);
+    max-height:300px;
+}
+.boxedhome {
+    padding: 3px;
+    background: rgba(182, 182, 182, 0.12);
+    border: 1px solidrgba(111, 111, 111, 0.34);
+    width: 100px;
+    border: 1px solid rgba(111, 111, 111, 0.34);
+}
+.boxedthread {
+    padding: 3px;
+    background: rgba(182, 182, 182, 0.12);
+    border: 1px solid rgba(111, 111, 111, 0.34);
+    margin-left: 3px;
+}
+p {
+    white-space: pre-wrap;
+    font-family: "Rodin", sans-serif;
+    font-size: 14px;
+}
+h1 {
+    font-family: "Rodin", sans-serif;
+}
+h2 {
+    font-family: "Rodin", sans-serif;
+}
+a {
+color: #514E3F;
+text-decoration: none;
+}
+th {
+    font-weight:normal;
+    font-size:11px;
+    padding: 15px;
+    background: rgba(182, 182, 182, 0.12);
+    border: 1px solid rgba(111, 111, 111, 0.34);
+}
+textarea {
+    font-weight:normal;
+    font-size:11px;
+    padding: 5px;
+    background: rgba(182, 182, 182, 0.12);
+    border: 1px solid rgba(111, 111, 111, 0.34);
+    color: black;
+}
+input {
+    font-weight:normal;
+    font-size:11px;
+    padding: 5px;
+    background: rgba(182, 182, 182, 0.12);
+    border: 1px solid rgba(111, 111, 111, 0.34);
+    color: black; 
+}
+hr {
+    color: rgba(111, 111, 111, 0.34);
+
+}
+div.boardlist {
+    margin-top: 3px;
+    color: #89A;
+    font-size: 9pt;
+}

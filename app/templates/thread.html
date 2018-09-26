@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/static/styles.css">
+<link rel="shortcut icon" href="/static/favicon.png">
+<title>/{{ BOARD_LETTER }}/ - {% for post in posts %}{% if post.id == thread_id %}{{ post.body }}{% endif %}{% endfor %} - {{ SITE_NAME }}</title>
+</head>
+<div style="margin: 0 auto;text-align;center">
+    <div style="margin-left:auto;margin-right:auto;text-align:center"><header><span style="color: #514E3F;"><a href="/"><h1>{{ SITE_NAME }}</h1></a><h2>/{{BOARD_LETTER}}/ - {{ BOARD }}</h2></span></header></div>
+</div>
+<br>
+<div align="center">
+<form action="" method="post" name="post">
+    {{ form.hidden_tag() }} 
+    <table>
+       <tbody>
+        <tr>
+            <th>Name:</th>
+            <td>{{ form.name(size=25, maxlength=50) }}</td>
+            {% for error in form.name.errors %}
+            <span style="color: red;">[Error in form Tripcode Pass: {{ error }}]</span><br>
+            {% endfor %}
+   
+            <tr> 
+            <th>Options:</th>
+            <td>{{ form.opti(size=25, maxlength=10, autocomplete="off") }} <input type="submit" value="New reply"></td>
+            {% for error in form.opti.errors %}
+            <span style="color: red;">[Error in form options: {{ error }}]</span><br>
+            {% endfor %}
+
+            <tr>
+            <th>Body:</th>
+            <td>{{ form.post(cols=35, rows=5, maxlength=2000) }}</td>
+            {% for error in form.post.errors %}
+            <span style="color: red;">[{{ error }} (Body)]</span><br>
+            {% endfor %}
+            </td> 
+        </tr>
+    </table>
+</form>
+</div>
+</div>
+<hr></hr>
+<body>
+    {% for post in posts %}
+    {% if post.id == thread_id or post.thread == thread_id %}
+{% if post.id != thread_id %}<div class="boxedthread">{% endif %}<p><strong>{% if post.subject != None %}<span style="color: #514E3F;">{{ post.subject }} </span>{% else %}{% endif %}{% if "## Admin" in post.trip:%}<span style="color: #E4D9AB">{{ post.trip }}</span></span>{% else %}<span style="color: #E4D9AB;">{{ post.trip|safe }}</span>{% endif %}</strong> {{ post.timestamp }} UTC <strong>No.<a id="{{ post.id }}"></a><a href="#{{ post.id }}"> {{ post.id }}</a>{% if post.sage == 0 %} <span title="sage">▼</span>{% elif post.sticky != None %}<span title="This thread is stickied."><img src="https://files.catbox.moe/6bih2f.png"</span>{% endif %}{% if post.locked != None %}<span title="This thread is locked."><img src="https://files.catbox.moe/xps3gi.png"></span>{% endif %}</strong><p>{% set pots = post.body %}{% for p in pots.split("\n"):%}{% if p.startswith(">") %}{% if p|isdig == True %}{% else %}<span style="color: #789922;">{% endif %}{{ p|escer|backlink|safe }}</span>{% else %}{{ p|escer|backlink|safe }}{% endif %}{% endfor %}</p>{% if post.banned != None %}<p><span style="color: red;"><strong>(USER WAS BANNED FOR THIS POST)</strong></p>{% endif %}</div>{% endif %}
+<p></p></p>
+{% endfor %}
+<hr></hr>
+<div style="margin: 0 auto;text-align;center">
+    <div style="margin-left:auto;margin-right:auto;text-align:center;font-size:11px;">All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties.</div>
+</div>
+</html>

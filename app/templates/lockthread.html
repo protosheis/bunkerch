@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/static/styles.css">
+<link rel="shortcut icon" href="/static/favicon.png">
+<title>/{{ BOARD_LETTER }}/ - {% for post in posts %}{% if post.id == thread_id %}{{ post.body }}{% endif %}{% endfor %} - {{ SITE_NAME }}</title>
+</head>
+<div style="margin: 0 auto;text-align;center">
+    <div style="margin-left:auto;margin-right:auto;text-align:center"><header><span style="color: #514E3F;"><h1>{{ SITE_NAME }}</h1><h2>/{{BOARD_LETTER}}/ - {{ BOARD }}</h2></span></header></div>
+</div>
+<br>
+<div align="center">
+<h2><span style="color: #514E3F;">This thread is locked. You can not post in it.</span></h2>
+</div>
+<hr></hr>
+<body>
+    {% for post in posts %}
+    {% if post.id == thread_id or post.thread == thread_id %}
+{% if post.id != thread_id %}<div class="boxed">{% endif %}<p><strong>{% if post.subject != None %}<span style="color: #514E3F;">{{ post.subject }} </span>{% else %}{% endif %}{% if post.trip == "Crablettes ## Admin":%}<span style="color: #CE2029">{{ post.trip }}</span></span>{% else %}<span style="color: #107843;">{{ post.trip|safe }}</span>{% endif %}</strong> {{ post.timestamp }} UTC <strong>No.<a id="{{ post.id }}"></a><a href="#{{ post.id }}"> {{ post.id }}</a>{% if post.sage == 1 %} <span title="User has bumped the thread with their post.">▲</span>{% elif post.sticky != None %}<span title="This thread is stickied."><img src="https://files.catbox.moe/6bih2f.png"</span>{% endif %}{% if post.locked != None %}<span title="This thread is locked."><img src="https://files.catbox.moe/xps3gi.png"></span>{% endif %}/strong><p>{% set pots = post.body %}{% for p in pots.split("\n"):%}{% if p.startswith(">") %}{% if p|isdig == True %}{% else %}<span style="color: #789922;">{% endif %}{{ p|escer|backlink|safe }}</span>{% else %}{{ p|escer|backlink|safe }}{% endif %}{% endfor %}</p>{% if post.banned != None %}<p><span style="color: red;"><strong>(USER WAS BANNED FOR THIS POST)</strong></p>{% endif %}</div>{% endif %}
+<p></p></p>
+{% endfor %}
+<hr></hr>
+<div style="margin: 0 auto;text-align;center">
+    <div style="margin-left:auto;margin-right:auto;text-align:center;font-size:11px;">All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties.</div>
+</div>
+</html>

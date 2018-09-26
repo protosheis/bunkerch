@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/static/styles.css">
+<link rel="shortcut icon" href="/static/favicon.png">
+<title>{{ SITE_NAME }}</title>
+</head>
+<header><span style="color: #514E3F;"><a href="/"><h1>{{ SITE_NAME }}</h1></a></span></header>
+<br>
+<header><span style="color: #514E3F;"><h1>Boards</h1></span></header>
+<div class="boxedhome">{% for k, v in boardlist %}<p><a href="/{{ k }}/">{{ v }}</a></p>{% endfor %}
+</html>
+

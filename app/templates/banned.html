@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+</style>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/static/styles.css">
+<link rel="shortcut icon" href="/static/favicon.png">
+<title>{{ SITE_NAME }} - Ban page</title>
+</head>
+<header><span style="color: #514E3F;"><h1>{{ SITE_NAME }} - Ban page</h1></span></header>
+{% set bnd = [0] %}<div class="boxed"><p>{% if addre in banlist %}<span style="color: red;"<h2>YOU ARE BANNED!{% set bnd = [1] %}</h2></span></p>{% else %}{% endif %}{% for b in banglobal %}{% if addre == b.ip %}{% set bnd = [1] %}<span style="color: red;"<h2>YOU ARE BANNED!</h2></span></p><p>You have been banned from all boards for the following reason:</p><p>{% if b.reason == None %}[Staff did not specify reason]</p>{% else %}{{ b.reason }}</p>{% endif %}<p>{% if b.length_until == None %}Your ban is permanent.</p>{% else %}Your ban will expire: {{ b.length_until }}.</p>{% endif %}{% endif %}{% endfor %}{% for b in banb %}{% if addre == b.ip %}{% set bnd = [1] %}<span style="color: red;"<h2>YOU ARE BANNED!</h2></span></p><p>You have been banned from /b/ for the following reason:</p><p>{% if b.reason == None %}[Staff did not specify reason]</p>{% else %}{{ b.reason }}</p>{% endif %}<p>{% if b.length_until == None %}Your ban is permanent.</p>{% else %}Your ban will expire: {{ b.length_until }}.</p>{% endif %}{% endif %}{% endfor %}{% if bnd == [0] %}You are not currently banned.</p>{% endif %}</div>
+</html>
+

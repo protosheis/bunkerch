@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/static/styles.css">
+<link rel="shortcut icon" href="/static/favicon.png">
+<title>/{{ BOARD_LETTER }}/ - {{ BOARD }} - {{ SITE_NAME }}</title>
+</head>
+<div style="margin: 0 auto;text-align;center">
+    <div style="margin-left:auto;margin-right:auto;text-align:center"><header><span style="color: #514E3F;"><a href="/"><h1>{{ SITE_NAME }}</h1></a><h2>/{{BOARD_LETTER}}/ - {{ BOARD }}</h2></span></header></div>
+</div>
+<br>
+<div align="center">
+<form action="" method="post" name="post">
+    {{ form.hidden_tag() }} 
+    <table> <tbody>
+        <tr>
+            <th>Name:</th>
+            <td>{{ form.name(size=25, maxlength=50) }}</td>
+            {% for error in form.name.errors %}
+            <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+            
+            <tr>
+            <th>Subject:</th>
+            <td>{{ form.subj(size=25, maxlength=100, autocomplete="off") }}<input type="submit" value="New thread"></td>
+            {% for error in form.subj.errors %}
+            <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+
+            <tr>
+            <th>Body:</th>
+            <td>{{ form.post(cols=35, rows=5, maxlength=2000) }}</td>
+            {% for error in form.post.errors %}
+            <span style="color: red;">[{{ error }} (Body)]</span><br>
+            {% endfor %}
+            </td>            
+    </table>
+</form>
+</div>
+<body>
+<hr></hr>
+
+{% for post in posts %}
+{% if post.thread == None and post.sticky != None %}
+<div class="boxed"><p><strong>{% if post.subject != None %}<span style="color: #514E3F;">{{ post.subject }}</span>{% else %}<span style="color: #514E3F;">[No subject]</span>{% endif %}
+{% if "## Admin" in post.trip:%}<span style="color: #B4947D">{{ post.trip }}</span>{% else %}<span style="color: #E4D9AB;">{{ post.trip|safe }}</span>{% endif %}</strong>
+{{ post.timestamp }} UTC
+<strong><a href="/{{ BOARD_LETTER }}/{{ post.id }}">No. {{ post.id }}</a> <span title="This thread is stickied."><img src="https://files.catbox.moe/6bih2f.png"></span>{% if post.locked != None %}<span title="This thread is locked."><img src="https://files.catbox.moe/xps3gi.png"></span>{% endif %}</strong>{% set replies = [0] %}{% for po in posts %}{% if po.thread == post.id %}{% if replies.append(replies.pop() + 1) %}{% endif %}{# increment replies by 1 #}{% else %}{% endif %}{% endfor %}
+Replies: <a href="/{{ BOARD_LETTER }}/{{ post.id }}">{{ replies }}</a><br><br>{% set pots = post.body %}{% for p in pots.split("\n"):%}{% if p.startswith(">") %}<span style="color: #789922;">{{ p|escer|safe }}</span>{% else %}{{ p|escer|safe }}{% endif %}{% endfor %}{% if post.banned != None %}<span style="color: red;"><strong>(USER WAS BANNED FOR THIS POST)</strong>{% endif %}</div>{% endif %}
+{% endfor %}
+
+{% for post in posts|sort(attribute='bump') %}
+{% if post.thread == None and post.sticky == None %}
+<div class="boxed"><p><strong>{% if post.subject != None %}<span style="color: #514E3F;">{{ post.subject }}</span>{% else %}<span style="color: #514E3F;">[No subject]</span>{% endif %}
+{% if post.trip == "Crablettes ## Admin":%}<span style="color: #B4947D">{{ post.trip }}</span>{% else %}<span style="color: #E4D9AB;">{{ post.trip|safe }}</span>{% endif %}</strong>
+{{ post.timestamp }} UTC
+<strong><a href="/{{ BOARD_LETTER }}/{{ post.id }}">No.{{ post.id }}</a>{% if post.locked != None %}<span title="This thread is locked."><img src="https://files.catbox.moe/xps3gi.png"></span>{% endif %}</span></strong>{% set replies = [0] %}{% for po in posts %}{% if po.thread == post.id %}{% if replies.append(replies.pop() + 1) %}{% endif %}{# increment replies by 1 #}{% else %}{% endif %}{% endfor %}
+Replies: <a href="/{{ BOARD_LETTER }}/{{ post.id }}">{{ replies }}</a><br>{% set pots = post.body %}{% for p in pots.split("\n"):%}{% if p.startswith(">") %}<span style="color: #789922;">{{ p|escer|safe }}</span>{% else %}{{ p|escer|safe }}{% endif %}{% endfor %}{% if post.banned != None %}<span style="color: red;"><strong>(USER WAS BANNED FOR THIS POST)</strong>{% endif %}</div>{% endif %}
+{% endfor %}
+<hr></hr>
+ <div style="margin: 0 auto;text-align;center"> 
+    <div style="margin-left:auto;margin-right:auto;text-align:center;font-size:11px;">All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties.</div>
+</div>
+</html>
